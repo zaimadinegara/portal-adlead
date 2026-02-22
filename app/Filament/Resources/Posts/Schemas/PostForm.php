@@ -7,6 +7,7 @@ use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Str;
 
@@ -33,6 +34,13 @@ class PostForm
                     ->required()
                     ->unique('posts', 'slug', ignoreRecord: true)
                     ->maxLength(255),
+
+                Select::make('category_id')
+                    ->label('Kategori')
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->nullable(),
 
                 // Baris kedua: Editor Konten (Lebar Penuh)
                 RichEditor::make('content')
